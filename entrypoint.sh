@@ -4,11 +4,21 @@ SOURCE_DIR=/var/www/localhost/htdocs
 
 (cd /opt/python-github-webhook && python /opt/python-github-webhook/run.py) &
 
-if [ ! -d $SOURCE_DIR/.git ]
+if [ -n "$FORCE_REINIT" ] && [ $FORCE_REINIT -gt 0 ]
 then
-   rm $SOURCE_DIR/*
-   git clone $GIT_SOURCE $SOURCE_DIR
+  FORCE_REINIT=true
 else
+  FORCE_REINIT=false
+fi
+
+if $FORCE_REINIT ||  [ ! -d $SOURCE_DIR/.git ]
+then
+   echo CLEANING OLD FILES
+   rm -rfv $SOURCE_DIR/.[!.]* $SOURCE_DIR/..?* $SOURCE_DIR/*
+   echo INITIALIZING REPOSITORY
+   git clone --recurse-submodules -j8 $GIT_SOURCE $SOURCE_DIR
+else
+   echo Using already exisiting source
    (cd $SOURCE_DIR && git pull)
 fi
 
