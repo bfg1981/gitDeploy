@@ -1,6 +1,6 @@
 FROM alpine as git_httpd
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint/entrypoint.sh"]
 WORKDIR /var/www/localhost/
 RUN apk --no-cache add git apache2-proxy py3-waitress
 
@@ -16,7 +16,6 @@ RUN apk --no-cache add py3-setuptools && \
 
 COPY conf.d /etc/apache2/conf.d
 
-
 COPY run.py /opt/python-github-webhook/
 COPY hooks /opt/python-github-webhook/hooks
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint /entrypoint
