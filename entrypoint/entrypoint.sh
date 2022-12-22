@@ -8,7 +8,7 @@ if test -n "$(find /entrypoint/pre.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/pre.d/*
   do
-    $file
+    . $file
   done
 fi
 
@@ -58,7 +58,7 @@ if test -n "$(find /entrypoint/post.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/post.d/*
   do
-    $file
+    . $file
   done
 fi
 
