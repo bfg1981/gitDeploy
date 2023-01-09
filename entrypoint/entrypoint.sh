@@ -38,7 +38,6 @@ then
      echo INITIALIZING REPOSITORY
      git clone --recurse-submodules -j8 $GIT_SOURCE $SOURCE_DIR && REPO_INITIALIZED=true
    fi
-   echo RR $REPO_INITIALIZED
    if $REPO_INITIALIZED
    then
      echo REPOSITORY INITIALIZED
