@@ -44,7 +44,6 @@ then
    if $REPO_INITIALIZED
    then
      echo REPOSITORY INITIALIZED
-     (cd /opt/python-github-webhook && python /opt/python-github-webhook/run.py) &
    else
      echo WARNING: REPOSITORY NOT INITIALIZED
      echo WARNING: This is not supposed to happen
@@ -58,7 +57,7 @@ fi
 
 if $REPO_INITIALIZED
 then
-  echo REPOSITORY INITIALIZED
+  echo STARTING WEBHOOKS
   (cd /opt/python-github-webhook && python /opt/python-github-webhook/run.py) &
 fi
 
