@@ -17,16 +17,19 @@ else
   REINIT=false
 fi
 
-if [ ! -d $SOURCE_DIR/.git ]
-then
-  echo NO PREVIOUS GIT REPOSITORY
-  REINIT=true
-elif [ "$(cd $SOURCE_DIR && git config --local --get remote.origin.url)" != "$GIT_SOURCE" ]
-then
-  echo REPOSITORY CHANGED
-  REINIT=true
-fi
 
+if [ -n "$GIT_SOURCE" ]
+then
+  if [ ! -d $SOURCE_DIR/.git ]
+  then
+    echo NO PREVIOUS GIT REPOSITORY
+    REINIT=true
+  elif [ "$(cd $SOURCE_DIR && git config --local --get remote.origin.url)" != "$GIT_SOURCE" ]
+  then
+    echo REPOSITORY CHANGED
+    REINIT=true
+  fi
+fi
 REPO_INITIALIZED=false
 if $REINIT
 then
@@ -51,6 +54,12 @@ else
    echo Using already exisiting source
    (cd $SOURCE_DIR && git pull)
    REPO_INITIALIZED=true
+fi
+
+if $REPO_INITIALIZED
+then
+  echo REPOSITORY INITIALIZED
+  (cd /opt/python-github-webhook && python /opt/python-github-webhook/run.py) &
 fi
 
 if [ -z "$HOOKS" ]
