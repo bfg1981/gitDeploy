@@ -1,5 +1,12 @@
 #!/bin/sh
 
+HOSTNAME=$(hostname)
+if [[ $HOSTNAME =~ ^[0-9A-Fa-f]{12}$ ]]
+then
+    echo "'$HOSTNAME' is most probably a random generated Docker hostname"
+    echo "Please consider setting the hostname explicitly"
+fi
+
 if [ -n "$VIRTUAL_HOST" ]
 then
   echo Found host "$VIRTUAL_HOST"
