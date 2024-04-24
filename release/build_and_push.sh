@@ -1,5 +1,4 @@
 #!/bin/bash
-TAG_NAME=therealbfg/git_httpd_markdown_digest
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
