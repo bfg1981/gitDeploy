@@ -1,12 +1,19 @@
 #!/bin/sh
 
+execute () {
+  INTERPRETER=$(sed -n ' /^#!/s///p;1q' "$1")
+  #Verbalize which interpreter
+  #echo "$INTERPRETER:$1"
+  "${INTERPRETER:-/bin/sh}" "$1"
+}
+
 SOURCE_DIR=/var/www/localhost/htdocs
 
 if test -n "$(find /entrypoint/pre.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/pre.d/*
   do
-    sh $file
+    execute $file
   done
 fi
 
@@ -81,7 +88,7 @@ if test -n "$(find /entrypoint/post.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/post.d/*
   do
-    sh $file
+    execute $file
   done
 fi
 
