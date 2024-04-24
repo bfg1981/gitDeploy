@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SOURCE_DIR=/var/www/localhost/htdocs
 
@@ -6,7 +6,7 @@ if test -n "$(find /entrypoint/pre.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/pre.d/*
   do
-    . $file
+    bash $file
   done
 fi
 
