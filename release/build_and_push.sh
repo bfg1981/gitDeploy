@@ -2,13 +2,22 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-if [ ! -f $SCRIPT_DIR/TAG_NAME ]
+if [ ! -f $SCRIPT_DIR/REPO_NAME ]
 then
-  echo "You need to write the name of the tag in '$SCRIPT_DIR/TAG_NAME'"
+  echo "You need to write the name of the repo in '$SCRIPT_DIR/REPO_NAME'"
   exit 1
 fi
 
-TAG_NAME=$(cat $SCRIPT_DIR/TAG_NAME)
+REPO_NAME=$(cat $SCRIPT_DIR/REPO_NAME)
+
+if [ -n "$1" ]
+then
+  TAG_NAME=$REPO_NAME:$1
+else
+  TAG_NAME=$REPO_NAME
+fi
+
+echo Tag name is "'$TAG_NAME'"
 
 fname=$(mktemp)
 
