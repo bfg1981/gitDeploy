@@ -81,7 +81,7 @@ if test -n "$(find /entrypoint/post.d/  -maxdepth 1 -type f -print -quit)"
 then
   for file in /entrypoint/post.d/*
   do
-    . $file
+    bash $file
   done
 fi
 
