@@ -3,7 +3,7 @@
 execute () {
   INTERPRETER=$(sed -n ' /^#!/s///p;1q' "$1")
   #Verbalize which interpreter
-  #echo "$INTERPRETER:$1"
+  echo "$INTERPRETER:$1"
   "${INTERPRETER:-/bin/sh}" "$1"
 }
 
