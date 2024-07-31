@@ -58,7 +58,12 @@ then
    fi
 else
    echo Using already exisiting source
-   (cd $SOURCE_DIR && git pull)
+   if [ -n "$GIT_SOURCE" ]
+   then
+       (cd $SOURCE_DIR && git pull)
+   else
+       echo No GIT_SOURCE set, we are probably running with an external repository, so we do not try to pull
+   fi
    REPO_INITIALIZED=true
 fi
 
